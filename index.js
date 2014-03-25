@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+app.use(express.static(__dirname + '/public'));
 
 app.get('/hello.txt', function(request, response){
   response.send('Hello World');
@@ -18,7 +19,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/codingHouseHours', function(err, 
 	  console.dir(results);
 	  db.close();
 	});
-});	
+});
 
 // MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
 // 	// console.log("YAY CONNECTED TO DATABASE", db);
