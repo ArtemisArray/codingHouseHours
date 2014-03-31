@@ -1,9 +1,36 @@
 var express = require("express");
+var mongoose = require("mongoose");
 var app = express();
+
+mongoose.connect('mongodb://localhost/codingHouseHours');
+
+var Appointment = mongoose.model('Appointment', {
+	instructor: {type: String, required: true},
+	student: {type: String, required: false},
+	startDate: {type: Date, required: true},
+	endDate: {type: Date, required: true}
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/hello.txt', function(request, response){
   response.send('Hello World');
+});
+
+app.post("/appointment", function(request,response){
+	var appointment = new Appointment({startDate: new Date(), endDate: new Date(), instructor: "Mike"});
+//	console.log("REQUEST PARAMS", request.params);
+//	console.log("REQUEST QUERY", request.query);
+//	console.log("REQUEST BODY", request.body);
+
+	appointment.save(function(error){
+		if (error){
+			response.send("ERROR SAVING APPOINTMENT");
+			console.error("ERROR SAVING APPOINTMENT", error);
+		} else{
+			response.send("Appointment successfully saved");
+		}
+	});
 });
 
 var server = app.listen(3000, function() {
