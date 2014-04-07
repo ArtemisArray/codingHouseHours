@@ -1,7 +1,7 @@
 codingHouseHours
 ================
 
-OHours like scheduler
+## OHours like scheduler
 
 ## Getting Started
 0. Start a virtual machine `vagrant up`
